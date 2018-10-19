@@ -1,35 +1,46 @@
 import sys
 import argparse
 
+
 def echo_upper(text):
-    print(text.lower())
+    return text.upper()
+
 
 def echo_lower(text):
-    print(text.upper())
+    return text.lower()
+
 
 def echo_title(text):
-    print(text.title())
+    return text.title()
+
+
+def parse_args(args):
+    parser = argparse.ArgumentParser(
+        description='Perform transformation on input text.')
+    parser.add_argument('-u', '--upper',
+                        help='convert text to uppercase', action='store_true')
+    parser.add_argument('-l', '--lower',
+                        help='convert text to lowercase', action='store_true')
+    parser.add_argument('-t', '--title',
+                        help='convert text to titlecase', action='store_true')
+    parser.add_argument('text', help='text to be manipulated')
+
+    return parser.parse_args(args)
+
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-u', '--upper', 
-                        help='Capitilizes all letters in a string')
-    parser.add_argument('-l', '--lower', 
-                        help='Turn all letters in a string to lowercase')
-    parser.add_argument('-t', '--title', 
-                        help='Capitalizes the first letter of every word in a string')
-
-    text = parser.parse_args(sys.argv[1:])
+    text = parse_args(sys.argv[1:])
     upper = text.upper
     lower = text.lower
     title = text.title
 
     if upper:
-        print echo_upper(text)
+        print(echo_upper(text))
     if lower:
-        print echo_lower(text)
+        print(echo_lower(text))
     if title:
-        print echo_title(text)
+        print(echo_title(text))
+
 
 if __name__ == "__main__":
     main()
